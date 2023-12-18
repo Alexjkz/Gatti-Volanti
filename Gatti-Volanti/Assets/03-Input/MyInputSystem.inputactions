@@ -6,55 +6,66 @@
             "id": "98c76366-25bb-4114-b0d1-8f853b66394f",
             "actions": [
                 {
-                    "name": "Touchinput",
-                    "type": "PassThrough",
-                    "id": "541f3601-8110-49bd-ae39-9e3b577e98c6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Controller",
+                    "name": "Movement",
                     "type": "Value",
-                    "id": "5d3eef8d-aa18-43e6-9106-b57e128d10cc",
-                    "expectedControlType": "Button",
+                    "id": "9e0237d0-e20d-4e6e-ba05-2c0aaea39dd8",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "a9f91768-32e4-4d9d-9af2-d5680a9ca5fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "a0783d70-599d-4700-94f2-db6ea069f9b7",
-                    "path": "",
+                    "name": "1D Axis",
+                    "id": "3ed56049-9722-4242-b6f5-97adb9a7671e",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Touchinput",
-                    "isComposite": false,
+                    "action": "Movement",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "33a3a36b-c57b-4fcc-adc7-dcb4a153f0fc",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Controller",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "93d11584-3107-4f19-83d8-62401a322220",
+                    "name": "negative",
+                    "id": "6b360ef6-793a-40f4-870a-9a51d27a49c8",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Controller",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "cd935f9e-612f-4204-bf2a-4ae5bc16fe5e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "20c576f1-aca6-454d-a6a0-df0fe82e61dc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
