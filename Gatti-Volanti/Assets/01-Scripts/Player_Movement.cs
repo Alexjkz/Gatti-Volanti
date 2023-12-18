@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 public class Player_Movement : MonoBehaviour
 {
 
-    public float _speed = 10.0f;
-    private float _jumpForce = 5.0f;
+    [SerializeField] private float _speed = 6.0f;
+    [SerializeField] private float _jumpForce = 5.0f;
 
     private float _moveInput;
 

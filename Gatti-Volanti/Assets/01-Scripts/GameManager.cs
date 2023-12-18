@@ -15,4 +15,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    IEnumerator MyCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+    }
 }
