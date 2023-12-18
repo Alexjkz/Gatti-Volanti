@@ -183,6 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f0c4b0490798ea4fa2aa825019e87b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerGatto: {fileID: 556548252}
+  prefabStage: {fileID: 1808722576609862733, guid: 1994828e4ebf86f4c9ca2d07ee63ec7b,
+    type: 3}
+  isReached: 0
 --- !u!4 &325633838
 Transform:
   m_ObjectHideFlags: 0
