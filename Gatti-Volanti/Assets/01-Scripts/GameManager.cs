@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print($"Player: {playerGatto.transform.position.x} - Trigger: {triggerStageOffset}");
 
         if(playerGatto.transform.position.x > triggerStageOffset)
         {

@@ -662,6 +662,7 @@ GameObject:
   - component: {fileID: 556548254}
   - component: {fileID: 556548253}
   - component: {fileID: 556548258}
+  - component: {fileID: 556548259}
   m_Layer: 0
   m_Name: Gatto
   m_TagString: Untagged
@@ -802,6 +803,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &556548259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556548252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf8b7d2ad35a3840a3c94b1e051bfe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 9
+  _energia: 100
 --- !u!1 &1386435949
 GameObject:
   m_ObjectHideFlags: 0
