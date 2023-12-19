@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     private float stageOffset;
 
     private float triggerStageOffset = 1f;
+    private GameObject[] stages;
+    
+    private int stageCounter = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +29,9 @@ public class GameManager : MonoBehaviour
 
         // Inizializzo il trigger offset
         triggerStageOffset = -12;
+
+        // Inizializzo l'array di stage
+        stages = new GameObject[80];
     }
 
     // Update is called once per frame
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
             CreaIlMondo();
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
+            print("FUNZIONE VIA");
         }
         
     }
@@ -45,8 +52,14 @@ public class GameManager : MonoBehaviour
 
     void CreaIlMondo()
     {
+        
         print($"Sto generando lo stage in {stageOffset}");
-        GameObject newObject = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
+        stages[stageCounter] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
+        stageCounter += 1;
+        if (stageCounter > 3)
+        {
+            Destroy(stages[stageCounter-4]); 
+        }
     }
 }
 
