@@ -192,6 +192,8 @@ MonoBehaviour:
   - {fileID: 7356992995983505065, guid: f3c8cf024350a2941964b9a371ae63e6, type: 3}
   - {fileID: 1001611102828472533, guid: 8c349b5e9e615a044899149a050bb462, type: 3}
   piattaforme: []
+  oggettiCibo:
+  - {fileID: 8948879836428400539, guid: 79a936f0d6e8c974b9cb98694cc00ac2, type: 3}
 --- !u!4 &325633838
 Transform:
   m_ObjectHideFlags: 0
@@ -1116,7 +1118,7 @@ Transform:
   m_GameObject: {fileID: 1877106277}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.99, y: 0, z: 4.118}
+  m_LocalPosition: {x: 9.99, y: 6.13, z: 4.118}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -33,5 +33,11 @@ public class Player_Health : MonoBehaviour
             _health--;
             print($"Health: {_health}");
         }
+        else if(other.gameObject.CompareTag("Cibo"))
+        {
+            _energia += 10;
+            print($"Energia: {_energia}");
+            other.gameObject.SetActive(false);
+        }
     }
 }

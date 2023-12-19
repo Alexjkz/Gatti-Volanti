@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isReached = false;
     [SerializeField] GameObject[] nemici;
     [SerializeField] GameObject[] piattaforme;
+
+    [SerializeField] GameObject[] oggettiCibo;
     private float spawnPoint; // Offset di partenza per lo spawn del nuovo stage
     private float stageWidth = 20f; // Sarebbe bello che li calcolasse lui in base alla dimensione dello stage
     private float stageOffset;
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
         {
             CreaIlMondo();
             CreaOggettiScena();
+            CreaOggettiCibo();
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
         }
@@ -85,6 +88,12 @@ public class GameManager : MonoBehaviour
         // Creo nemici
         instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), 0, 0), Quaternion.identity);
 
+    }
+
+    void CreaOggettiCibo()
+    {
+        // Creo oggetti cibo
+        GameObject cibo = Instantiate(oggettiCibo[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
     }
 
 
