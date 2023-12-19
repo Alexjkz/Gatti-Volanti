@@ -13,6 +13,7 @@ public class Player_Movement : MonoBehaviour
 
     [SerializeField] private float _speed = 6.0f;
     [SerializeField] private float _jumpForce = 5.0f;
+    [SerializeField] public float groundCheckDistance = 10f;
 
     private float _moveInput;
 
@@ -23,10 +24,12 @@ public class Player_Movement : MonoBehaviour
 
     private Rigidbody rigidbodyGatto;
 
+    
+    public bool isGrounded;
+
 
     private void Awake()
     {
-        print("Awake");
         input = new MyInputSystem();
 
         rigidbodyGatto = GetComponent<Rigidbody>();
@@ -43,13 +46,11 @@ public class Player_Movement : MonoBehaviour
 
     private void OnEnable()
     {
-        print("OnEnable");
         input.MyActionMap.Enable();
     }
 
     private void OnDisable()
     {
-        print("OnDisable");
         input.MyActionMap.Disable();
     } 
     
@@ -64,16 +65,25 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // float moveHorizontal = Input.GetAxis("Horizontal");
-        // bool jump = Input.GetKeyDown("space");
-        // print(moveHorizontal);
+        Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
+        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance))
+        {
+            if(hit.collider.gameObject.CompareTag("Stage"))
+            {
+                isGrounded = true;
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
 
         Vector3 movement = new Vector3(_moveInput, 0.0f, 0.0f);
 
         transform.Translate(movement * _speed * Time.deltaTime);
         
-        if(_jumpInput)
+        if(isGrounded && _jumpInput)
         {
             rigidbodyGatto.AddForce(new Vector3(0.0f, _jumpForce, 0.0f), ForceMode.Impulse);
             _jumpInput = false;
@@ -82,3 +92,11 @@ public class Player_Movement : MonoBehaviour
     }
 
 }
+
+
+//---------- OLD CODE ----------
+
+    //Movimento vecchio input system
+        // float moveHorizontal = Input.GetAxis("Horizontal");
+        // bool jump = Input.GetKeyDown("space");
+        // print(moveHorizontal);
