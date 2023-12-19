@@ -190,6 +190,7 @@ MonoBehaviour:
   nemici:
   - {fileID: 8277304369796405641, guid: 8501bbf69f8b4e247916129e907ad5c5, type: 3}
   - {fileID: 7356992995983505065, guid: f3c8cf024350a2941964b9a371ae63e6, type: 3}
+  - {fileID: 1001611102828472533, guid: 8c349b5e9e615a044899149a050bb462, type: 3}
   piattaforme: []
 --- !u!4 &325633838
 Transform:
@@ -594,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 8102454629577037629, guid: d2c0a04d6204cc642bff9896c222e04b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9588232
+      value: -1.07
       objectReference: {fileID: 0}
     - target: {fileID: 8102454629577037629, guid: d2c0a04d6204cc642bff9896c222e04b,
         type: 3}
@@ -687,10 +688,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.71617955
-  m_Height: 1.4323591
+  m_Radius: 0.6999232
+  m_Height: 1.4189919
   m_Direction: 1
-  m_Center: {x: 0.20950381, y: -0.3811883, z: -0.0066751568}
+  m_Center: {x: 0.20197016, y: -0.38787198, z: -0.0066751568}
 --- !u!23 &556548254
 MeshRenderer:
   m_ObjectHideFlags: 0

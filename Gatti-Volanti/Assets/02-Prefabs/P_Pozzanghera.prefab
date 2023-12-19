@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 74857244617255888}
+  - component: {fileID: 5981404545128364800}
   m_Layer: 0
   m_Name: P_Pozzanghera
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 3202495263154289164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5981404545128364800
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001611102828472533}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6350572, y: 0.12638049, z: 1.8503311}
+  m_Center: {x: -0.016145468, y: 0.0075985864, z: -0.012557775}
 --- !u!1 &5503886800615426491
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 983cdaf2e237d3640add13f4d645c7b2, type: 3}
+  - {fileID: 2100000, guid: 4c70779f75b413c4da8ce4e610de1a88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
