@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         print("SpawnPoint: " + spawnPoint);
         
         // Inizializzo lo spawn offset
-        stageOffset = (stageWidth + spawnPoint) / 2;
+        stageOffset = 20;
 
         // Inizializzo il trigger offset
         triggerStageOffset = -12;
