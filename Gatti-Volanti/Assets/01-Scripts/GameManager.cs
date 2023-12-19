@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
             CreaOggettiScena();
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
-            print("FUNZIONE VIA");
         }
         
     }
@@ -88,6 +87,12 @@ public class GameManager : MonoBehaviour
         instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), 0, 0), Quaternion.identity);
 
     }
+
+
+    // Meccanica della fame del gatto
+    // Mangia gli oggetti "palle di pelo"
+
+    // Niente re-spawn, il gatto muore e si ricomincia da capo
     
 }
 
@@ -101,3 +106,15 @@ public class GameManager : MonoBehaviour
     //     GameObject newObject = Instantiate(prefabStage, new Vector3(spawnPoint + stageOffset , 0, 0.5f), Quaternion.identity);
     //     yield return new WaitUntil(() => isReached);
     // }
+
+
+// Meccanica per gestione vita:
+/*
+Il gatto ha due parametri: fame e vita
+La fame diminuisce col tempo
+La vita diminuisce se la fame è a 0
+
+Il gatto può mangiare gomitoli per aumentare la fame
+
+
+*/

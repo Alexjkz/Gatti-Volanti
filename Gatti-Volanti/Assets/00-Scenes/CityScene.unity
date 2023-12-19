@@ -567,10 +567,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 556548256}
+  - component: {fileID: 556548257}
   - component: {fileID: 556548255}
   - component: {fileID: 556548254}
   - component: {fileID: 556548253}
-  - component: {fileID: 556548257}
   - component: {fileID: 556548258}
   m_Layer: 0
   m_Name: Gatto
@@ -682,6 +682,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _jumpForce: 5
+  groundCheckDistance: 1
+  isGrounded: 0
 --- !u!54 &556548258
 Rigidbody:
   m_ObjectHideFlags: 0
