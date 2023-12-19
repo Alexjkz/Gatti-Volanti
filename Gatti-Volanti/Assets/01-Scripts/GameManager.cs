@@ -8,12 +8,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject prefabStage;
     private Coroutine MyCoroutineInstance;
     [SerializeField] private bool isReached = false;
+    [SerializeField] GameObject[] nemici;
+    [SerializeField] GameObject[] piattaforme;
     private float spawnPoint; // Offset di partenza per lo spawn del nuovo stage
     private float stageWidth = 20f; // Sarebbe bello che li calcolasse lui in base alla dimensione dello stage
     private float stageOffset;
 
     private float triggerStageOffset = 1f;
     private GameObject[] stages;
+
+    private GameObject[] instantiatedEnemies;
+    private int instEnemiesCounter = 0;
+    private GameObject[] instantiatedPlatforms;
+    private int instPlatformsCounter = 0;
+
+    
     
     private int stageCounter = 0;
     
@@ -32,6 +41,12 @@ public class GameManager : MonoBehaviour
 
         // Inizializzo l'array di stage
         stages = new GameObject[80];
+
+        // Inizializzo l'array di nemici
+        instantiatedEnemies = new GameObject[80];
+
+        // Inizializzo l'array di piattaforme
+        instantiatedPlatforms = new GameObject[80];
     }
 
     // Update is called once per frame
@@ -42,6 +57,7 @@ public class GameManager : MonoBehaviour
         if(playerGatto.transform.position.x > triggerStageOffset)
         {
             CreaIlMondo();
+            CreaOggettiScena();
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
             print("FUNZIONE VIA");
@@ -61,6 +77,18 @@ public class GameManager : MonoBehaviour
             Destroy(stages[stageCounter-4]); 
         }
     }
+
+
+    void CreaOggettiScena()
+    {
+        // Creo piattaforme su cui saltare
+
+
+        // Creo nemici
+        instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), 0, 0), Quaternion.identity);
+
+    }
+    
 }
 
 
