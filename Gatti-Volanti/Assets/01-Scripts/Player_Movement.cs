@@ -26,6 +26,8 @@ public class Player_Movement : MonoBehaviour
     
     public bool isGrounded;
 
+    private int jumpNumber = 2;
+
 
     private void Awake()
     {
@@ -74,6 +76,7 @@ public class Player_Movement : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Stage"))
             {
                 isGrounded = true;
+                jumpNumber = 2;
             }
         }
         else
@@ -85,11 +88,15 @@ public class Player_Movement : MonoBehaviour
 
         transform.Translate(movement * _speed * Time.deltaTime);
         
-        if(isGrounded && _jumpInput)
+        // >>> JUMP FUNCTION <<<
+        if((isGrounded || jumpNumber  > 0) && _jumpInput)
         {
             rigidbodyGatto.AddForce(new Vector3(0.0f, _jumpForce, 0.0f), ForceMode.Impulse);
+            jumpNumber--;
+            print($"JumpNumber: {jumpNumber}");
             _jumpInput = false;
         }
+        print($"JumpNumberUpdate: {jumpNumber}");
 
     }
 

@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         stageIndex += 1;
         if (stageIndex >= poolSize)
         {
-            stageIndex = 0; 
+            stageIndex = 0;
         }
         
     }
