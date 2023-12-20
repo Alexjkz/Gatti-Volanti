@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] piattaforme;
 
     [SerializeField] GameObject[] oggettiCibo;
+    [SerializeField] private TextMeshProUGUI fpsText;
+    private float deltaTime;
     private float spawnPoint; // Offset di partenza per lo spawn del nuovo stage
     private float stageWidth = 20f; // Sarebbe bello che li calcolasse lui in base alla dimensione dello stage
     private float stageOffset;
@@ -31,6 +34,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 120;
+        
         // Qui mi salvo lo spawn point del gatto
         spawnPoint = playerGatto.transform.position.x;
         print("SpawnPoint: " + spawnPoint);
@@ -63,6 +70,10 @@ public class GameManager : MonoBehaviour
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
         }
+
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        float fps = 1.0f / deltaTime;
+        fpsText.text = string.Format("FPS: {0:0.}", fps);
         
     }
 

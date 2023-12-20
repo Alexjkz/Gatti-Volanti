@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,6 +40,9 @@ public class Player_Movement : MonoBehaviour
         // Configuro l'azione di salto
         input.MyActionMap.Jump.performed += ctx => _jumpInput = true;
         input.MyActionMap.Jump.canceled += ctx => _jumpInput = false;
+
+        // Infinite forward movement
+        _moveInput = 1.0f;
 
     }
 
