@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,13 +10,18 @@ using UnityEngine.InputSystem;
 public class Player_Movement : MonoBehaviour
 {
 
-    [SerializeField] private float _speed = 6.0f;
+    [SerializeField] private float _speed = 4.0f;
+    [SerializeField] private float _maxSpeed;
     [SerializeField] private float _jumpForce = 5.0f;
     [SerializeField] public float groundCheckDistance = 10f;
 
     private float _moveInput;
 
     private bool _jumpInput;
+
+    public GameManager gameManager;
+
+    float myStageProgression;
 
     
     private MyInputSystem input = null;
@@ -27,9 +31,17 @@ public class Player_Movement : MonoBehaviour
     
     public bool isGrounded;
 
+    private int jumpNumber = 2;
+
+    private float totalTime;
+
 
     private void Awake()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        myStageProgression = gameManager.stageProgression;
+        print($"StageProgression: {myStageProgression}");
+
         input = new MyInputSystem();
 
         rigidbodyGatto = GetComponent<Rigidbody>();
@@ -41,6 +53,9 @@ public class Player_Movement : MonoBehaviour
         // Configuro l'azione di salto
         input.MyActionMap.Jump.performed += ctx => _jumpInput = true;
         input.MyActionMap.Jump.canceled += ctx => _jumpInput = false;
+
+        // Infinite forward movement
+        _moveInput = 1.0f;
 
     }
 
@@ -65,6 +80,13 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print($"Totaltime:{totalTime}");
+        // >>> SPEED INCREASE <<<
+        totalTime += Time.deltaTime;
+        _speed = 4 + _maxSpeed*(totalTime/420);
+        print($"Speed: {_speed}");
+
+        
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance))
@@ -72,6 +94,7 @@ public class Player_Movement : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Stage"))
             {
                 isGrounded = true;
+                jumpNumber = 2;
             }
         }
         else
@@ -83,9 +106,11 @@ public class Player_Movement : MonoBehaviour
 
         transform.Translate(movement * _speed * Time.deltaTime);
         
-        if(isGrounded && _jumpInput)
+        // >>> JUMP FUNCTION <<<
+        if((isGrounded || jumpNumber  > 0) && _jumpInput)
         {
             rigidbodyGatto.AddForce(new Vector3(0.0f, _jumpForce, 0.0f), ForceMode.Impulse);
+            jumpNumber--;
             _jumpInput = false;
         }
 

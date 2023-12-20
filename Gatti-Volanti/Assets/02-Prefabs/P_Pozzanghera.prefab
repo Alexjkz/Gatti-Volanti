@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5981404545128364800}
   m_Layer: 0
   m_Name: P_Pozzanghera
-  m_TagString: Untagged
+  m_TagString: DamageObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

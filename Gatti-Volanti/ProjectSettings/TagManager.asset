@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stage
+  - DamageObj
+  - Enemy
+  - Cibo
   layers:
   - Default
   - TransparentFX
