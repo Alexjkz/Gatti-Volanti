@@ -14,13 +14,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject[] oggettiCibo;
     [SerializeField] private TextMeshProUGUI fpsText;
+    
     private float deltaTime;
     private float spawnPoint; // Offset di partenza per lo spawn del nuovo stage
     private float stageWidth = 20f; // Sarebbe bello che li calcolasse lui in base alla dimensione dello stage
-    private float stageOffset;
 
-    private float triggerStageOffset = 1f;
-    private GameObject[] stages;
+
 
     private GameObject[] instantiatedEnemies;
     private int instEnemiesCounter = 0;
@@ -28,34 +27,43 @@ public class GameManager : MonoBehaviour
     private int instPlatformsCounter = 0;
 
     
-    
-    private int stageCounter = 0;
-    
-    // Start is called before the first frame update
+    // >>> Gestione Stages <<<
+    private GameObject[] stages; // Array che contiene tutti gli stages spawnati
+    private int stageIndex = 0; // Mi tiene traccia dell'indice dell'ultimo stage spawnato
+    private float stageOffset; // Si aggiorna ad ogni spawn con il valore del transfrom dello stage successivo
+    private float triggerStageOffset; // Si aggiorna con il punto di detect per spawnare lo stage successivo
+    [SerializeField] private int poolSize = 4; //è il numero di stages che voglio tenere spawnati in contemporanea
+
     void Start()
     {
-        // 
+        // >>> QUALITY SETTINGS <<<
         QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 120;
+        Screen.SetResolution(1480, 720,false);
         
-        // Qui mi salvo lo spawn point del gatto
-        spawnPoint = playerGatto.transform.position.x;
+        
+        // >>> INIZIALIZZO LE VARIABILI <<<
+        spawnPoint = playerGatto.transform.position.x; // Qui mi salvo lo spawn point del gatto
         print("SpawnPoint: " + spawnPoint);
         
-        // Inizializzo lo spawn offset
-        stageOffset = 20;
+        stageOffset = 20; // Inizializzo lo spawn offset spostandolo dal primo stage permanente
 
-        // Inizializzo il trigger offset
-        triggerStageOffset = -12;
+        triggerStageOffset = -12; // Inizializzo il trigger offset
 
-        // Inizializzo l'array di stage
+        // >>> INIZIALIZZO GLI ARRAY <<<
         stages = new GameObject[80];
-
-        // Inizializzo l'array di nemici
         instantiatedEnemies = new GameObject[80];
-
-        // Inizializzo l'array di piattaforme
         instantiatedPlatforms = new GameObject[80];
+
+        // >>> CREO GLI STAGES INIZIALI <<<
+        for (int i = 0; i < poolSize; i++)
+        {
+            stages[i] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
+            stageOffset += stageWidth;
+            triggerStageOffset += stageWidth;
+
+        }
+        print("StageIndex: " + stageIndex);
     }
 
     // Update is called once per frame
@@ -64,7 +72,7 @@ public class GameManager : MonoBehaviour
 
         if(playerGatto.transform.position.x > triggerStageOffset)
         {
-            CreaIlMondo();
+            SpostaLoStage();
             CreaOggettiScena();
             CreaOggettiCibo();
             stageOffset += stageWidth;
@@ -78,16 +86,23 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void CreaIlMondo()
+    void SpostaLoStage()
     {
         
-        print($"Sto generando lo stage in {stageOffset}");
-        stages[stageCounter] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
-        stageCounter += 1;
-        if (stageCounter > 3)
+        // print($"Sto generando lo stage in {stageOffset}");
+        // stages[stageCounter] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
+        // stageCounter += 1;
+        // if (stageCounter > 3)
+        // {
+        //     Destroy(stages[stageCounter-4]); 
+        // }
+        stages[stageIndex].transform.position = new Vector3(stageOffset , 0, 0.5f);
+        stageIndex += 1;
+        if (stageIndex >= poolSize)
         {
-            Destroy(stages[stageCounter-4]); 
+            stageIndex = 0; 
         }
+        
     }
 
 
@@ -113,6 +128,18 @@ public class GameManager : MonoBehaviour
 
     // Niente re-spawn, il gatto muore e si ricomincia da capo
     
+    public void Pausa()
+    {
+        if (Time.timeScale == 0) 
+        {
+            Time.timeScale = 1;
+        }
+
+        else 
+        {
+            Time.timeScale = 0;
+        }
+    }
 }
 
 

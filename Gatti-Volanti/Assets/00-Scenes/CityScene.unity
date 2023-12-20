@@ -400,6 +400,7 @@ MonoBehaviour:
   oggettiCibo:
   - {fileID: 8948879836428400539, guid: 79a936f0d6e8c974b9cb98694cc00ac2, type: 3}
   fpsText: {fileID: 1833766603}
+  poolSize: 5
 --- !u!4 &325633838
 Transform:
   m_ObjectHideFlags: 0
