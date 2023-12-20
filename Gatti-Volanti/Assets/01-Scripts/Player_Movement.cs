@@ -10,13 +10,18 @@ using UnityEngine.InputSystem;
 public class Player_Movement : MonoBehaviour
 {
 
-    [SerializeField] private float _speed = 6.0f;
+    [SerializeField] private float _speed = 4.0f;
+    [SerializeField] private float _maxSpeed;
     [SerializeField] private float _jumpForce = 5.0f;
     [SerializeField] public float groundCheckDistance = 10f;
 
     private float _moveInput;
 
     private bool _jumpInput;
+
+    public GameManager gameManager;
+
+    float myStageProgression;
 
     
     private MyInputSystem input = null;
@@ -28,9 +33,15 @@ public class Player_Movement : MonoBehaviour
 
     private int jumpNumber = 2;
 
+    private float totalTime;
+
 
     private void Awake()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        myStageProgression = gameManager.stageProgression;
+        print($"StageProgression: {myStageProgression}");
+
         input = new MyInputSystem();
 
         rigidbodyGatto = GetComponent<Rigidbody>();
@@ -69,6 +80,13 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print($"Totaltime:{totalTime}");
+        // >>> SPEED INCREASE <<<
+        totalTime += Time.deltaTime;
+        _speed = 4 + _maxSpeed*(totalTime/420);
+        print($"Speed: {_speed}");
+
+        
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
 
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundCheckDistance))
@@ -93,10 +111,8 @@ public class Player_Movement : MonoBehaviour
         {
             rigidbodyGatto.AddForce(new Vector3(0.0f, _jumpForce, 0.0f), ForceMode.Impulse);
             jumpNumber--;
-            print($"JumpNumber: {jumpNumber}");
             _jumpInput = false;
         }
-        print($"JumpNumberUpdate: {jumpNumber}");
 
     }
 

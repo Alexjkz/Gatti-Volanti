@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     private int instEnemiesCounter = 0;
     private GameObject[] instantiatedPlatforms;
     private int instPlatformsCounter = 0;
+    public int stageProgression = 0;
 
     
     // >>> Gestione Stages <<<
@@ -32,7 +34,9 @@ public class GameManager : MonoBehaviour
     private int stageIndex = 0; // Mi tiene traccia dell'indice dell'ultimo stage spawnato
     private float stageOffset; // Si aggiorna ad ogni spawn con il valore del transfrom dello stage successivo
     private float triggerStageOffset; // Si aggiorna con il punto di detect per spawnare lo stage successivo
-    [SerializeField] private int poolSize = 4; //è il numero di stages che voglio tenere spawnati in contemporanea
+    [SerializeField] private int poolSize = 4;  //è il numero di stages che voglio tenere spawnati in contemporanea
+
+    private MyInputSystem input = null;
 
     void Start()
     {
@@ -44,7 +48,6 @@ public class GameManager : MonoBehaviour
         
         // >>> INIZIALIZZO LE VARIABILI <<<
         spawnPoint = playerGatto.transform.position.x; // Qui mi salvo lo spawn point del gatto
-        print("SpawnPoint: " + spawnPoint);
         
         stageOffset = 20; // Inizializzo lo spawn offset spostandolo dal primo stage permanente
 
@@ -63,7 +66,6 @@ public class GameManager : MonoBehaviour
             triggerStageOffset += stageWidth;
 
         }
-        print("StageIndex: " + stageIndex);
     }
 
     // Update is called once per frame
@@ -82,6 +84,14 @@ public class GameManager : MonoBehaviour
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         float fps = 1.0f / deltaTime;
         fpsText.text = string.Format("FPS: {0:0.}", fps);
+
+        print($"StageProgression: {stageProgression}");
+
+        if (stageProgression > 40)
+        {
+            Time.timeScale = 0;
+            print("Hai vinto");
+        }
         
     }
 
@@ -96,6 +106,7 @@ public class GameManager : MonoBehaviour
         // {
         //     Destroy(stages[stageCounter-4]); 
         // }
+        stageProgression++;
         stages[stageIndex].transform.position = new Vector3(stageOffset , 0, 0.5f);
         stageIndex += 1;
         if (stageIndex >= poolSize)
@@ -109,7 +120,7 @@ public class GameManager : MonoBehaviour
     void CreaOggettiScena()
     {
         // Creo piattaforme su cui saltare
-
+        instantiatedPlatforms[instPlatformsCounter] = Instantiate(piattaforme[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
 
         // Creo nemici
         instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), 0, 0), Quaternion.identity);
@@ -130,14 +141,16 @@ public class GameManager : MonoBehaviour
     
     public void Pausa()
     {
+        
         if (Time.timeScale == 0) 
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1;            
         }
-
         else 
         {
             Time.timeScale = 0;
+            
+            print("Pausa");
         }
     }
 }
