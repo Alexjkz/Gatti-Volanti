@@ -7,7 +7,6 @@ public class ButtonBehaviour : MonoBehaviour
 {
     public void PlayGame()
     {
-       Debug.Log("Ho premuto il bottone");
-       SceneManager.LoadScene("CityScene");
+      SceneManager.LoadScene("CityScene");
     }
 }
