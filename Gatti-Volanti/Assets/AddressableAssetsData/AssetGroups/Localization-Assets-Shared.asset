@@ -15,11 +15,16 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_Data:
     m_SerializedData: []
-  m_GUID: dc245dd5df2081f47859dd24098ca07d
-  m_SerializeEntries: []
+  m_GUID: 3cb35d6c5ddfe034e93182dc8ce12691
+  m_SerializeEntries:
+  - m_GUID: 2892bb23f47a4c3449e6a95f050587b7
+    m_Address: Assets/08-Languages/CommandsTables/Commands Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
-  m_Settings: {fileID: 11400000, guid: 6f830fd20eab4554192c65ac518c3fed, type: 2}
+  m_Settings: {fileID: 11400000, guid: 6493460b8752f9241bd6d93a2f414f38, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9ba35bb00d94e0f4a99390ff998380ca, type: 2}
-    - {fileID: 11400000, guid: 8f8f7d332258eec428d1286b3e9873a5, type: 2}
+    - {fileID: 11400000, guid: c87a4d56463667940b8add1c31e7d6ce, type: 2}
+    - {fileID: 11400000, guid: 5b5b86b71604a584b9fe6f56a3a60339, type: 2}
