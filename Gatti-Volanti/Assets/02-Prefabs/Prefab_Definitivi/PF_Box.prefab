@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6847020909928605596}
   - component: {fileID: 8842846949117168521}
   - component: {fileID: 1601577730000333993}
+  - component: {fileID: 5401508831301370033}
   m_Layer: 0
   m_Name: PF_Box
-  m_TagString: Untagged
+  m_TagString: DamageObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3438660613258049475}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 6.243414, y: 0.014121196, z: 3.0924833}
+  m_LocalPosition: {x: 6.243414, y: 0.507, z: 3.0924833}
   m_LocalScale: {x: 2.6945446, y: 2.6945446, z: 2.6945446}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,3 +84,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5401508831301370033
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438660613258049475}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.49978364, y: 0.28612083, z: 0.49181914}
+  m_Center: {x: -0.011227476, y: -0.018060418, z: -0.010009677}
