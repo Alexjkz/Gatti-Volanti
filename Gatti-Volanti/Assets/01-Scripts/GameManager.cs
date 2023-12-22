@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -49,6 +49,12 @@ public class GameManager : MonoBehaviour
 
     private MyInputSystem input = null;
 
+    void Awake()
+    {
+        Time.timeScale = 1;
+        Screen.fullScreen = true;
+    }
+
     void Start()
     {
         // >>> QUALITY SETTINGS <<<
@@ -65,9 +71,10 @@ public class GameManager : MonoBehaviour
         triggerStageOffset = -12; // Inizializzo il trigger offset
 
         // >>> INIZIALIZZO GLI ARRAY <<<
-        stages = new GameObject[80];
-        instantiatedEnemies = new GameObject[80];
-        instantiatedPlatforms = new GameObject[80];
+        stages = new GameObject[200];
+        instantiatedEnemies = new GameObject[200];
+        instantiatedPlatforms = new GameObject[200];
+        instantiatedSeagulls = new GameObject[200];
 
         // >>> CREO GLI STAGES INIZIALI <<<
         for (int i = 0; i < poolSize; i++)
