@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
             stages[i] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
-
+            CreaOggettiScena();
+            CreaOggettiCibo();
         }
     }
 
