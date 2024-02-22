@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player_Health : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class Player_Health : MonoBehaviour
             _energia = 100;
         }
 
+        if(_health <= 0)
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene("YouLost");
+        }
 
     }
 

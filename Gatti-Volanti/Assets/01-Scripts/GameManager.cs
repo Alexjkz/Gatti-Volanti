@@ -1,8 +1,10 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isReached = false;
     [SerializeField] GameObject[] nemici;
     [SerializeField] GameObject[] piattaforme;
-
+    [SerializeField] GameObject[] seaGulls;
     [SerializeField] GameObject[] oggettiCibo;
     [SerializeField] private TextMeshProUGUI fpsText;
+    [SerializeField] private Button buttonPausa;
+    [SerializeField] private Sprite spritePausa;
+    [SerializeField] private Sprite spritePlay;
     
     private float deltaTime;
     private float spawnPoint; // Offset di partenza per lo spawn del nuovo stage
@@ -25,7 +30,13 @@ public class GameManager : MonoBehaviour
     private GameObject[] instantiatedEnemies;
     private int instEnemiesCounter = 0;
     private GameObject[] instantiatedPlatforms;
+
+    
     private int instPlatformsCounter = 0;
+
+    private GameObject[] instantiatedSeagulls;
+
+    private int instSeagullsCounter = 0;
     public int stageProgression = 0;
 
     
@@ -37,6 +48,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int poolSize = 4;  //è il numero di stages che voglio tenere spawnati in contemporanea
 
     private MyInputSystem input = null;
+
+    void Awake()
+    {
+        Time.timeScale = 1;
+        Screen.fullScreen = true;
+    }
 
     void Start()
     {
@@ -54,9 +71,10 @@ public class GameManager : MonoBehaviour
         triggerStageOffset = -12; // Inizializzo il trigger offset
 
         // >>> INIZIALIZZO GLI ARRAY <<<
-        stages = new GameObject[80];
-        instantiatedEnemies = new GameObject[80];
-        instantiatedPlatforms = new GameObject[80];
+        stages = new GameObject[200];
+        instantiatedEnemies = new GameObject[200];
+        instantiatedPlatforms = new GameObject[200];
+        instantiatedSeagulls = new GameObject[200];
 
         // >>> CREO GLI STAGES INIZIALI <<<
         for (int i = 0; i < poolSize; i++)
@@ -64,7 +82,8 @@ public class GameManager : MonoBehaviour
             stages[i] = Instantiate(prefabStage, new Vector3(stageOffset , 0, 0.5f), Quaternion.identity);
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
-
+            CreaOggettiScena();
+            //CreaOggettiCibo();
         }
     }
 
@@ -76,7 +95,7 @@ public class GameManager : MonoBehaviour
         {
             SpostaLoStage();
             CreaOggettiScena();
-            CreaOggettiCibo();
+            //CreaOggettiCibo();
             stageOffset += stageWidth;
             triggerStageOffset += stageWidth;
         }
@@ -90,7 +109,7 @@ public class GameManager : MonoBehaviour
         if (stageProgression > 40)
         {
             Time.timeScale = 0;
-            print("Hai vinto");
+            SceneManager.LoadScene("YouWon");
         }
         
     }
@@ -119,19 +138,38 @@ public class GameManager : MonoBehaviour
 
     void CreaOggettiScena()
     {
+        float posizione_x_piattaforma = Random.Range(0, stageWidth);
+        float posizione_y_piattaforma = Random.Range(3, 4);
         // Creo piattaforme su cui saltare
-        instantiatedPlatforms[instPlatformsCounter] = Instantiate(piattaforme[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
+        instantiatedPlatforms[instPlatformsCounter] = Instantiate(piattaforme[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + posizione_x_piattaforma, posizione_y_piattaforma, 0), Quaternion.identity);
 
+        GameObject cibo = Instantiate(oggettiCibo[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + posizione_x_piattaforma + 4, posizione_y_piattaforma + 2, 0), Quaternion.identity);
         // Creo nemici
+        
         instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), 0, 0), Quaternion.identity);
+        
+        if (stageProgression > 25)
+        {
+            instantiatedEnemies[instEnemiesCounter] = Instantiate(nemici[Random.Range(0, nemici.Length)], new Vector3((spawnPoint + stageOffset + Random.Range(0, stageWidth)), 0, 0), Quaternion.identity);
+        }
 
+        // Creo seagulls
+        if(stageProgression > 15)
+        {
+            instantiatedSeagulls[instSeagullsCounter] = Instantiate(seaGulls[Random.Range(0, seaGulls.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
+        }
+        if(stageProgression > 30)
+        {
+            instantiatedSeagulls[instSeagullsCounter] = Instantiate(seaGulls[Random.Range(0, seaGulls.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
+        }
+        
     }
 
-    void CreaOggettiCibo()
-    {
-        // Creo oggetti cibo
-        GameObject cibo = Instantiate(oggettiCibo[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
-    }
+    // void CreaOggettiCibo()
+    // {
+    //     // Creo oggetti cibo
+    //     GameObject cibo = Instantiate(oggettiCibo[Random.Range(0, piattaforme.Length)], new Vector3(spawnPoint + stageOffset + Random.Range(0, stageWidth), Random.Range(2, 8), 0), Quaternion.identity);
+    // }
 
 
     // Meccanica della fame del gatto
@@ -144,11 +182,13 @@ public class GameManager : MonoBehaviour
         
         if (Time.timeScale == 0) 
         {
-            Time.timeScale = 1;            
+            Time.timeScale = 1;
+            buttonPausa.image.sprite = spritePausa;            
         }
         else 
         {
             Time.timeScale = 0;
+            buttonPausa.image.sprite = spritePlay;
             
             print("Pausa");
         }
